@@ -1,23 +1,63 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Typography, Button } from '@mui/material';
+import { Home, Delete as TrashIcon } from '@mui/icons-material';
 
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
-
+const NotFound: React.FC = () => {
+  const navigate = useNavigate();
+  
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
-      </div>
-    </div>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.default',
+        background: 'linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%)',
+        p: 3,
+      }}
+    >
+      <Box sx={{ textAlign: 'center' }}>
+        <Box
+          sx={{
+            width: 80,
+            height: 80,
+            borderRadius: 3,
+            bgcolor: 'grey.300',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            mx: 'auto',
+            mb: 3,
+          }}
+        >
+          <TrashIcon sx={{ color: 'grey.500', fontSize: 40 }} />
+        </Box>
+        
+        <Typography variant="h1" fontWeight={700} color="primary.main" sx={{ fontSize: { xs: 80, md: 120 } }}>
+          404
+        </Typography>
+        
+        <Typography variant="h5" fontWeight={600} gutterBottom>
+          Page Not Found
+        </Typography>
+        
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: 400 }}>
+          Oops! The page you're looking for seems to have been disposed of.
+          Let's get you back on track.
+        </Typography>
+        
+        <Button
+          variant="contained"
+          size="large"
+          startIcon={<Home />}
+          onClick={() => navigate('/')}
+        >
+          Go to Home
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
